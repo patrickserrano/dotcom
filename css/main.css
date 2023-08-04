@@ -1,0 +1,389 @@
+/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+
+html {
+  color: #343434;
+  font-size: 1em;
+  line-height: 1.4;
+  height: 100%;
+}
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+
+/* ===== Initializr Styles ==================================================
+ Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+ ========================================================================== */
+ a {
+  text-decoration: none;
+  color: #6c6c6c;
+ }
+
+ a:hover {
+  color: #C7CDD5;
+ }
+
+body {
+  font: 16px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 100;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  width: 90%;
+  margin: 0 5%;
+}
+
+/* ==============
+  MOBILE: Menu
+ ============== */
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav a {
+  display: block;
+  margin-bottom: 10px;
+  padding: 15px 0;
+
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+
+  color: white;
+  background: #000;
+}
+
+nav a:visited {
+  color: white;
+}
+
+nav a:hover {
+  background: #343434;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+/* ==============
+  MOBILE: Main
+ ============== */
+
+.main {
+  padding: 30px 0;
+  margin: 0 auto;
+}
+
+.footer-container footer {
+  color: #ccc;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+/* ===============
+  ALL: IE Fixes
+ =============== */
+
+.ie7 .title {
+  padding-top: 10px;
+}
+
+/* ==========================================================================
+ Author's custom styles
+ ========================================================================== */
+
+.main { max-width: 55%; }
+
+.main-container { flex: 1; }
+
+#me { max-width: 100%; 
+      width: 200px;  
+      height: 200px; 
+      float: left;
+      margin: 0 1em 1em 0;
+}
+
+/*header { height: 58px; }*/
+
+h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
+
+.title { margin: 10px 0; }
+
+/* .greeting { text-align: center; } */
+
+.greeting h1 {
+  font-size: 3em;
+  font-weight: 300;
+  margin-bottom: .3em;
+  line-height: 1;
+}
+
+.greeting:after { float: both; }
+}
+
+.heading { font-weight: 600  }
+
+.recent-list {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.recent-list h2 { margin: 40px 0 15px 0; }
+
+.recent-list ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.recent-list ul li { margin: 10px 0; }
+
+.project h2 { margin-top: 40px;}
+
+.img-hopper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.thumb {
+  position: relative;
+  max-width: 32%;
+  max-height: 250px;
+  margin: 0 1% 0 0;
+  float: left;
+  border: 2px solid rgba(0,0,0,0.2);
+}
+
+.last { margin: 0; }
+
+.learn {
+  display: block;
+  padding: 4px 10px;
+  background-color: rgba(238,238,238, 0.5);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.learn:hover, .learn a:hover {
+  background-color: rgba(238,238,238, 1);
+  color: #6c6c6c;;
+}
+
+.resume h3 { margin-bottom: 0; font-size: 1.3em }
+
+.resume ul { margin:0.5% 0; }
+
+.duties {
+/*   font-weight: 600; */
+  margin-bottom: 0;
+}
+
+.date {
+  font-style: italic;
+  font-weight: 100;
+  font-size: 0.9em;
+  margin-top: 0.2%;
+}
+
+.apps, .social{
+  max-width: 37%;
+  float: left;
+}
+
+.social { min-width: 287px; }
+
+.apps { margin-right: 26%; }
+
+/* ==========================================================================
+ Media Queries
+ ========================================================================== */
+
+@media only screen and (min-width: 375px) {
+
+/* ====================
+  INTERMEDIATE: Menu
+ ==================== */
+  .main { max-width: 80%; }
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  nav a {
+      float: left;
+      width: 27%;
+      margin: 0 1.7%;
+      padding: 18px 2%;
+      margin-bottom: 0;
+      border-radius: 3px;
+  }
+
+  nav li:first-child a {
+      margin-left: 0;
+  }
+
+  nav li:last-child a {
+      margin-right: 0;
+  }
+
+  h1 {
+    line-height: 1.1;
+  }
+
+  .thumb {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+  }
+
+/* ========================
+  INTERMEDIATE: IE Fixes
+ ======================== */
+
+  nav ul li {
+      display: inline;
+  }
+
+  .oldie nav a {
+      margin: 0 0.7%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+
+/* ============
+  WIDE: Menu
+ ============ */
+
+  .title {
+      float: left;
+  }
+
+  nav {
+      float: right;
+      width: 38%;
+  }
+
+/* ============
+  WIDE: Main
+ ============ */
+  .main { max-width: 55%; }
+
+  .main article {
+      float: left;
+      width: 57%;
+  }
+
+  .main aside {
+      float: right;
+      width: 28%;
+  }
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+  Maximal Width
+ =============== */
+
+  .wrapper {
+      width: 1026px; /* 1140px - 10% for margins */
+      margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
+ Helper classes
+ ========================================================================== */
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}

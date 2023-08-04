@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="e">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>SMS Contact</title>
+    <style>
+        body {
+          font-family: sans-serif;
+          font-weight: normal;
+          font-size: 14px;
+          max-width: 400px;
+        }
+
+        h1 {
+          font-size: 16px;
+        }
+
+        .submit {
+          display: block;
+          background-color: 
+          #272727;
+          border: none;
+          color: 
+          #FFF;
+          cursor: pointer;
+          font: 12px/1em 'Helvetica Neue', helvetica, arial, sans-serif;
+          font-weight: normal;
+          padding: 14px 18px;
+          text-align: center;
+          -webkit-appearance: none;
+        }
+
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        ul li {
+          margin: 0;
+          padding: 0 0 5px 0;
+          display: block;
+          margin-right: 5px;
+        }
+
+        ul li:last-child {
+          margin: 0;
+        }
+        
+        /* Character Count styles */	
+        
+        form{ 
+          width:300px;
+        }
+        
+        label{
+        	display:block;
+        	font-size:14px;
+        }
+        
+        textarea{
+        	width:290px;
+        	height:60px;
+        	border:2px solid #ccc;
+        	padding:3px;
+        	color:#555;
+        	font:16px Arial, Helvetica, sans-serif;
+        }
+        
+        
+        form div{ 
+          position:relative;margin:1em 0;
+        }
+        
+        form .counter{
+        	position:absolute;
+        	right:0;
+        	top:0;
+        	font-size:16px;
+        	font-weight:bold;
+        	color:#ccc;
+        }
+        
+        form .warning{ 
+          color:#600;
+        }	
+        
+        form .exceeded{ 
+          color:#e00;
+        }	
+    </style>
+  </head>
+  <body>
+      <form action="sms_a.php" method="post" id="form">
+        <h1>Message Recipients</h1>
+<!--         <h2>Out of order for the moment. Check back soon!</h2> -->
+        <ul>
+<!--
+          <li><label>Test </label><input type="checkbox" name="test"></li>
+          <hr>
+-->
+          <li><label>Staff </label><input type="checkbox" name="staff"></li>
+          <li><label>All Parents </label><input type="checkbox" name="parents"></li>
+        </ul>
+        <div>
+          <label for="message"><h1>Message Text:</h1></label>
+          <textarea name="smsText" rows="5" cols="36" id="message1"></textarea>
+          <input type="submit" class="submit" name="submit" />
+        </div>
+      </form>
+      <script type="text/javascript" src="js/jquery.js"></script>
+      <script type="text/javascript" src="js/charCount.js"></script>
+      <script type="text/javascript">
+      	$(document).ready(function(){	
+      		//default usage
+      		$("#message1").charCount({
+      			allowed: 127,		
+      			warning: 20,
+      			counterText: 'Characters left: '	
+      		});
+      	});
+      </script>
+  </body>
+</html>
