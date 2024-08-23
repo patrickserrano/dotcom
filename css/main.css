@@ -56,14 +56,14 @@ textarea {
 /* ===== Initializr Styles ==================================================
  Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
  ========================================================================== */
- a {
+a {
   text-decoration: none;
   color: #6c6c6c;
- }
+}
 
- a:hover {
+a:hover {
   color: #C7CDD5;
- }
+}
 
 body {
   font: 16px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -107,7 +107,7 @@ nav a:visited {
 
 nav a:hover {
   background: #343434;
-  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 /* ==============
@@ -138,24 +138,29 @@ nav a:hover {
  Author's custom styles
  ========================================================================== */
 
-.main { max-width: 55%; }
-
-.main-container { flex: 1; }
-
-#me { max-width: 100%; 
-      width: 200px;  
-      height: 200px; 
-      float: left;
-      margin: 0 1em 1em 0;
+.main {
+  max-width: 55%;
 }
 
-/*header { height: 58px; }*/
+.main-container {
+  flex: 1;
+}
 
-h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
+#me {
+  max-width: 100%;
+  width: 200px;
+  height: 200px;
+  float: left;
+  margin: 0 1em 1em 0;
+}
 
-.title { margin: 10px 0; }
+h2 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 
-/* .greeting { text-align: center; } */
+.title {
+  margin: 10px 0;
+}
 
 .greeting h1 {
   font-size: 3em;
@@ -164,10 +169,13 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
   line-height: 1;
 }
 
-.greeting:after { float: both; }
+.greeting:after {
+  float: both;
 }
 
-.heading { font-weight: 600  }
+.heading {
+  font-weight: 600
+}
 
 .recent-list {
   max-width: 500px;
@@ -175,7 +183,9 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
   text-align: center;
 }
 
-.recent-list h2 { margin: 40px 0 15px 0; }
+.recent-list h2 {
+  margin: 40px 0 15px 0;
+}
 
 .recent-list ul {
   list-style: none;
@@ -183,9 +193,13 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
   padding: 0;
 }
 
-.recent-list ul li { margin: 10px 0; }
+.recent-list ul li {
+  margin: 10px 0;
+}
 
-.project h2 { margin-top: 40px;}
+.project h2 {
+  margin-top: 40px;
+}
 
 .img-hopper {
   max-width: 800px;
@@ -199,30 +213,39 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
   max-height: 250px;
   margin: 0 1% 0 0;
   float: left;
-  border: 2px solid rgba(0,0,0,0.2);
+  border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.last { margin: 0; }
+.last {
+  margin: 0;
+}
 
 .learn {
   display: block;
   padding: 4px 10px;
-  background-color: rgba(238,238,238, 0.5);
+  background-color: rgba(238, 238, 238, 0.5);
   border-radius: 5px;
   text-align: center;
 }
 
-.learn:hover, .learn a:hover {
-  background-color: rgba(238,238,238, 1);
-  color: #6c6c6c;;
+.learn:hover,
+.learn a:hover {
+  background-color: rgba(238, 238, 238, 1);
+  color: #6c6c6c;
+  ;
 }
 
-.resume h3 { margin-bottom: 0; font-size: 1.3em }
+.resume h3 {
+  margin-bottom: 0;
+  font-size: 1.3em
+}
 
-.resume ul { margin:0.5% 0; }
+.resume ul {
+  margin: 0.5% 0;
+}
 
 .duties {
-/*   font-weight: 600; */
+  /*   font-weight: 600; */
   margin-bottom: 0;
 }
 
@@ -233,14 +256,19 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
   margin-top: 0.2%;
 }
 
-.apps, .social{
+.apps,
+.social {
   max-width: 37%;
   float: left;
 }
 
-.social { min-width: 287px; }
+.social {
+  min-width: 287px;
+}
 
-.apps { margin-right: 26%; }
+.apps {
+  margin-right: 26%;
+}
 
 /* ==========================================================================
  Media Queries
@@ -248,30 +276,32 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
 
 @media only screen and (min-width: 375px) {
 
-/* ====================
+  /* ====================
   INTERMEDIATE: Menu
  ==================== */
-  .main { max-width: 80%; }
+  .main {
+    max-width: 80%;
+  }
 
   .title {
     margin-bottom: 20px;
   }
 
   nav a {
-      float: left;
-      width: 27%;
-      margin: 0 1.7%;
-      padding: 18px 2%;
-      margin-bottom: 0;
-      border-radius: 3px;
+    float: left;
+    width: 27%;
+    margin: 0 1.7%;
+    padding: 18px 2%;
+    margin-bottom: 0;
+    border-radius: 3px;
   }
 
   nav li:first-child a {
-      margin-left: 0;
+    margin-left: 0;
   }
 
   nav li:last-child a {
-      margin-right: 0;
+    margin-right: 0;
   }
 
   h1 {
@@ -284,59 +314,62 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
     margin: 0 auto;
   }
 
-/* ========================
+  /* ========================
   INTERMEDIATE: IE Fixes
  ======================== */
 
   nav ul li {
-      display: inline;
+    display: inline;
   }
 
   .oldie nav a {
-      margin: 0 0.7%;
+    margin: 0 0.7%;
   }
 }
 
 @media only screen and (min-width: 768px) {
 
-/* ============
+  /* ============
   WIDE: Menu
  ============ */
 
   .title {
-      float: left;
+    float: left;
   }
 
   nav {
-      float: right;
-      width: 38%;
+    float: right;
+    width: 38%;
   }
 
-/* ============
+  /* ============
   WIDE: Main
  ============ */
-  .main { max-width: 55%; }
+  .main {
+    max-width: 55%;
+  }
 
   .main article {
-      float: left;
-      width: 57%;
+    float: left;
+    width: 57%;
   }
 
   .main aside {
-      float: right;
-      width: 28%;
+    float: right;
+    width: 28%;
   }
 }
 
 @media only screen and (min-width: 1140px) {
 
-/* ===============
+  /* ===============
   Maximal Width
  =============== */
 
   .wrapper {
-      width: 1026px; /* 1140px - 10% for margins */
-      margin: 0 auto;
+    width: 1026px;
+    /* 1140px - 10% for margins */
+    margin: 0 auto;
   }
 }
 
@@ -385,5 +418,5 @@ h2 { border-bottom: 1px solid rgba(0,0,0,0.1); }
 }
 
 .clearfix {
-  *zoom: 1;
+  zoom: 1;
 }
