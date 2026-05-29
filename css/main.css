@@ -143,6 +143,8 @@ nav a:hover {
   display: flex !important;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+  width: auto !important;
 }
 
 .studio-nav-logo {
