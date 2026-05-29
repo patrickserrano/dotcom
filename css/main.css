@@ -1,19 +1,56 @@
 /*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
 
+/* ==========================================================================
+ Color tokens — Monokai Phoenix inspired
+ ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Backgrounds */
+  --color-bg:          #1e1f28;
+  --color-bg-surface:  #26273a;
+  --color-bg-elevated: #2f3047;
+
+  /* Text */
+  --color-text-primary:   #f8f8f2;
+  --color-text-secondary: #c7c9d1;
+  --color-text-muted:     #8b8fa8;
+
+  /* Accents */
+  --color-accent-cyan:   #78dce8;
+  --color-accent-orange: #fc9867;
+  --color-accent-green:  #a9dc76;
+  --color-accent-purple: #ab9df2;
+
+  /* Borders */
+  --color-border:        #373850;
+  --color-border-strong: #4b4d68;
+  --color-separator:     rgba(248, 248, 242, 0.14);
+
+  /* Interaction */
+  --color-selection-bg: rgba(120, 220, 232, 0.28);
+  --color-focus-ring:   var(--color-accent-cyan);
+  --shadow-elevated:    0 14px 40px rgba(0, 0, 0, 0.32);
+}
+
 html {
-  color: #343434;
+  color: var(--color-text-primary);
+  background: var(--color-bg);
   font-size: 1em;
-  line-height: 1.4;
+  line-height: 1.5;
   height: 100%;
 }
 
 ::-moz-selection {
-  background: #b3d4fc;
+  background: var(--color-selection-bg);
+  color: var(--color-text-primary);
   text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
+  background: var(--color-selection-bg);
+  color: var(--color-text-primary);
   text-shadow: none;
 }
 
@@ -21,7 +58,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--color-separator);
   margin: 1em 0;
   padding: 0;
 }
@@ -47,8 +84,8 @@ textarea {
 
 .browserupgrade {
   margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
   padding: 0.2em 0;
 }
 
@@ -56,18 +93,32 @@ textarea {
 /* ===== Initializr Styles ==================================================
  Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
  ========================================================================== */
+
 a {
-  text-decoration: none;
-  color: #6c6c6c;
+  color: var(--color-accent-cyan);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+a:visited {
+  color: var(--color-accent-purple);
 }
 
 a:hover {
-  color: #C7CDD5;
+  color: var(--color-accent-orange);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
 }
 
 body {
-  font: 16px/22px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 100;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -95,19 +146,33 @@ nav a {
 
   text-align: center;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
 
-  color: white;
-  background: #000;
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
 }
 
 nav a:visited {
-  color: white;
+  color: var(--color-text-primary);
 }
 
 nav a:hover {
-  background: #343434;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  color: var(--color-accent-cyan);
+  background: var(--color-bg-elevated);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-elevated);
+}
+
+nav a:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+nav a[aria-current="page"] {
+  color: var(--color-bg);
+  background: var(--color-accent-cyan);
+  border-color: var(--color-accent-cyan);
 }
 
 /* ==============
@@ -119,17 +184,23 @@ nav a:hover {
   margin: 0 auto;
 }
 
+.main-container {
+  flex: 1;
+  background: var(--color-bg);
+}
+
 .footer-container footer {
-  color: #ccc;
+  color: var(--color-text-muted);
   padding: 20px 0;
   text-align: center;
-  font-size: 0.8em;
+  font-size: 0.85em;
 }
 
 .studio-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  color: var(--color-accent-cyan);
 }
 
 .studio-logo {
@@ -152,14 +223,6 @@ nav a:hover {
   image-rendering: pixelated;
 }
 
-/* ===============
-  ALL: IE Fixes
- =============== */
-
-.ie7 .title {
-  padding-top: 10px;
-}
-
 /* ==========================================================================
  Author's custom styles
  ========================================================================== */
@@ -168,29 +231,32 @@ nav a:hover {
   max-width: 55%;
 }
 
-.main-container {
-  flex: 1;
-}
-
 #me {
   max-width: 100%;
   width: 200px;
   height: 200px;
   float: left;
   margin: 0 1em 1em 0;
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-elevated);
 }
 
 h2 {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-separator);
 }
 
 .title {
+  color: var(--color-accent-orange);
+  font-weight: 700;
   margin: 10px 0;
 }
 
 .greeting h1 {
+  color: var(--color-text-primary);
   font-size: 3em;
-  font-weight: 300;
+  font-weight: 700;
   margin-bottom: .3em;
   line-height: 1;
 }
@@ -200,7 +266,8 @@ h2 {
 }
 
 .heading {
-  font-weight: 600
+  color: var(--color-text-primary);
+  font-weight: 700;
 }
 
 .recent-list {
@@ -239,7 +306,7 @@ h2 {
   max-height: 250px;
   margin: 0 1% 0 0;
   float: left;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--color-border);
 }
 
 .last {
@@ -249,21 +316,28 @@ h2 {
 .learn {
   display: block;
   padding: 4px 10px;
-  background-color: rgba(238, 238, 238, 0.5);
+  color: var(--color-accent-cyan);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 5px;
   text-align: center;
 }
 
 .learn:hover,
 .learn a:hover {
-  background-color: rgba(238, 238, 238, 1);
-  color: #6c6c6c;
-  ;
+  background-color: var(--color-bg-elevated);
+  color: var(--color-accent-orange);
 }
 
 .resume h3 {
+  color: var(--color-text-primary);
   margin-bottom: 0;
-  font-size: 1.3em
+  font-size: 1.3em;
+  line-height: 1.25;
+}
+
+.workplace {
+  color: var(--color-accent-orange);
 }
 
 .resume ul {
@@ -271,15 +345,25 @@ h2 {
 }
 
 .duties {
-  /*   font-weight: 600; */
+  color: var(--color-text-secondary);
   margin-bottom: 0;
 }
 
 .date {
+  color: var(--color-accent-green);
   font-style: italic;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 0.9em;
   margin-top: 0.2%;
+}
+
+.main p,
+.main li {
+  line-height: 1.6;
+}
+
+.resume li + li {
+  margin-top: 0.25em;
 }
 
 .apps,
@@ -402,8 +486,7 @@ h2 {
  =============== */
 
   .wrapper {
-    width: 1026px;
-    /* 1140px - 10% for margins */
+    width: min(1026px, 90%);
     margin: 0 auto;
   }
 }
