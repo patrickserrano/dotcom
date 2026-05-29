@@ -19,6 +19,7 @@
         <ul>
           <li><a href="../index.html">About</a></li>
           <li><a href="resume.html">Resume</a></li>
+          <li><a href="https://pixelfoxstudio.com" target="_blank" rel="noopener noreferrer" class="studio-nav-link"><img src="../img/pixelfox_logo.png" alt="" class="studio-nav-logo" />Pixel Fox Studio</a></li>
         </ul>
       </nav>
     </header>
@@ -40,8 +41,14 @@
 
       <h2>Experience</h2>
 
+      <h3>Associate Lead Software Engineer, <span class="workplace">Rockstar Games</span></h3>
+      <p class="date">2025-Present</p>
+      <ul>
+        <li>Managed team of 6 engineers and 2 UX designers</li>
+      </ul>
+
       <h3>Senior Software Engineer, <span class="workplace">Rockstar Games</span></h3>
-      <p class="date">2024-Present</p>
+      <p class="date">2024-2025</p>
       <ul>
         <li>Senior Full-Stack Software Engineer</li>
       </ul>
@@ -201,12 +208,13 @@
   </div> <!-- #main-container -->
   <div class="footer-container">
     <footer class="wrapper">
-      <p>&copy;
-        <script type="text/javascript">document.write(new Date().getFullYear());</script> Patrick Serrano
-      </p>
+      <p>&copy; <span id="year"></span> Patrick Serrano</p>
     </footer>
   </div>
 
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
   <script>
     (function(b, o, i, l, e, r) {
       b.GoogleAnalyticsObject = l; b[l] || (b[l] =
