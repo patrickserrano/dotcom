@@ -21,6 +21,7 @@
                 <ul>
                     <li><a href="index.html">About</a></li>
                     <li><a href="pages/resume.html">Resume</a></li>
+                    <li><a href="https://pixelfoxstudio.com" target="_blank" rel="noopener noreferrer" class="studio-nav-link"><img src="img/pixelfox_logo.png" alt="" class="studio-nav-logo" />Pixel Fox Studio</a></li>
                 </ul>
             </nav>
         </header>
@@ -57,12 +58,19 @@
 
     <div class="footer-container">
         <footer class="wrapper">
-            <p>&copy;
-                <script type="text/javascript">document.write(new Date().getFullYear());</script> Patrick Serrano
+            <p>&copy; <span id="year"></span> Patrick Serrano</p>
+            <p>
+                <a href="https://pixelfoxstudio.com" target="_blank" rel="noopener noreferrer" class="studio-link">
+                    <img src="img/pixelfox_logo.png" alt="Pixel Fox Studio" class="studio-logo" />
+                    Pixel Fox Studio
+                </a>
             </p>
         </footer>
     </div>
 
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
     <script>
         (function(b, o, i, l, e, r) {
             b.GoogleAnalyticsObject = l; b[l] || (b[l] =
