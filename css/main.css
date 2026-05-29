@@ -144,7 +144,6 @@ nav a:hover {
   align-items: center;
   gap: 6px;
   white-space: nowrap;
-  width: auto !important;
 }
 
 .studio-nav-logo {
@@ -314,11 +313,20 @@ h2 {
     margin-bottom: 20px;
   }
 
+  nav ul {
+    display: flex;
+    gap: 8px;
+  }
+
+  nav ul li {
+    display: flex;
+  }
+
   nav a {
-    float: left;
-    width: 27%;
-    margin: 0 1.7%;
-    padding: 18px 2%;
+    float: none;
+    width: auto;
+    margin: 0;
+    padding: 18px 20px;
     margin-bottom: 0;
     border-radius: 3px;
   }
