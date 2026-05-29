@@ -126,6 +126,31 @@ nav a:hover {
   font-size: 0.8em;
 }
 
+.studio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.studio-logo {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  vertical-align: middle;
+}
+
+.studio-nav-link {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+.studio-nav-logo {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
 /* ===============
   ALL: IE Fixes
  =============== */
