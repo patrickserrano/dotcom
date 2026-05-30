@@ -1,540 +1,431 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
 
 /* ==========================================================================
- Color tokens — Monokai Phoenix inspired
- ========================================================================== */
+   Tokens
+   ========================================================================== */
 
 :root {
+  --bg:      #0d0d0d;
+  --text:    #e8e8e8;
+  --muted:   #555555;
+  --accent:  #e8612a;
+  --border:  #1f1f1f;
+  --font:    ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  --max-w:   860px;
   color-scheme: dark;
-
-  /* Backgrounds */
-  --color-bg:          #1e1f28;
-  --color-bg-surface:  #26273a;
-  --color-bg-elevated: #2f3047;
-
-  /* Text */
-  --color-text-primary:   #f8f8f2;
-  --color-text-secondary: #c7c9d1;
-  --color-text-muted:     #8b8fa8;
-
-  /* Accents */
-  --color-accent-cyan:   #78dce8;
-  --color-accent-orange: #fc9867;
-  --color-accent-green:  #a9dc76;
-  --color-accent-purple: #ab9df2;
-
-  /* Borders */
-  --color-border:        #373850;
-  --color-border-strong: #4b4d68;
-  --color-separator:     rgba(248, 248, 242, 0.14);
-
-  /* Interaction */
-  --color-selection-bg: rgba(120, 220, 232, 0.28);
-  --color-focus-ring:   var(--color-accent-cyan);
-  --shadow-elevated:    0 14px 40px rgba(0, 0, 0, 0.32);
 }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
 
 html {
-  color: var(--color-text-primary);
-  background: var(--color-bg);
-  font-size: 1em;
-  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.6;
   height: 100%;
-}
-
-::-moz-selection {
-  background: var(--color-selection-bg);
-  color: var(--color-text-primary);
-  text-shadow: none;
-}
-
-::selection {
-  background: var(--color-selection-bg);
-  color: var(--color-text-primary);
-  text-shadow: none;
-}
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid var(--color-separator);
-  margin: 1em 0;
-  padding: 0;
-}
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle;
-}
-
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.browserupgrade {
-  margin: 0.2em 0;
-  background: var(--color-bg-elevated);
-  color: var(--color-text-primary);
-  padding: 0.2em 0;
-}
-
-
-/* ===== Initializr Styles ==================================================
- Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
- ========================================================================== */
-
-a {
-  color: var(--color-accent-cyan);
-  text-decoration: underline;
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
-}
-
-a:visited {
-  color: var(--color-accent-purple);
-}
-
-a:hover {
-  color: var(--color-accent-orange);
-}
-
-a:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 3px;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text-primary);
-  font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-weight: 400;
+  margin: 0;
   min-height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.wrapper {
-  width: 90%;
-  margin: 0 5%;
+::selection {
+  background: rgba(232, 97, 42, 0.28);
+  color: var(--text);
 }
 
-/* ==============
-  MOBILE: Menu
- ============== */
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
 
-nav ul {
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 40px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+
+.site-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style-type: none;
 }
 
-nav a {
-  display: block;
-  margin-bottom: 10px;
-  padding: 15px 0;
-
-  text-align: center;
+.site-nav a {
+  font-size: 12px;
+  color: var(--muted);
   text-decoration: none;
-  font-weight: 700;
-
-  color: var(--color-text-primary);
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
+  letter-spacing: 0.04em;
 }
 
-nav a:visited {
-  color: var(--color-text-primary);
+.site-nav a:hover {
+  color: var(--text);
 }
 
-nav a:hover {
-  color: var(--color-accent-cyan);
-  background: var(--color-bg-elevated);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-elevated);
-}
-
-nav a:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 3px;
-}
-
-nav a[aria-current="page"] {
-  color: var(--color-bg);
-  background: var(--color-accent-cyan);
-  border-color: var(--color-accent-cyan);
-}
-
-/* ==============
-  MOBILE: Main
- ============== */
-
-.main {
-  padding: 30px 0;
-  margin: 0 auto;
-}
-
-.main-container {
-  flex: 1;
-  background: var(--color-bg);
-}
-
-.footer-container footer {
-  color: var(--color-text-muted);
-  padding: 20px 0;
-  text-align: center;
-  font-size: 0.85em;
-}
-
-.studio-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--color-accent-cyan);
-}
-
-.studio-logo {
-  width: 16px;
-  height: 16px;
-  image-rendering: pixelated;
-  vertical-align: middle;
+.site-nav a[aria-current="page"] {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
 }
 
 .studio-nav-link {
   display: flex !important;
   align-items: center;
-  gap: 6px;
-  white-space: nowrap;
+  gap: 5px;
 }
 
 .studio-nav-logo {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   image-rendering: pixelated;
 }
 
 /* ==========================================================================
- Author's custom styles
- ========================================================================== */
+   Main
+   ========================================================================== */
 
-.main {
-  max-width: 55%;
-}
-
-#me {
-  max-width: 100%;
-  width: 200px;
-  height: 200px;
-  float: left;
-  margin: 0 1em 1em 0;
-  border: 2px solid var(--color-border);
-  border-radius: 4px;
-  box-shadow: var(--shadow-elevated);
-}
-
-h2 {
-  color: var(--color-text-primary);
-  border-bottom: 1px solid var(--color-separator);
-}
-
-.title {
-  color: var(--color-accent-orange);
-  font-weight: 700;
-  margin: 10px 0;
-}
-
-.greeting h1 {
-  color: var(--color-text-primary);
-  font-size: 3em;
-  font-weight: 700;
-  margin-bottom: .3em;
-  line-height: 1;
-}
-
-.greeting:after {
-  float: both;
-}
-
-.heading {
-  color: var(--color-text-primary);
-  font-weight: 700;
-}
-
-.recent-list {
-  max-width: 500px;
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-w);
   margin: 0 auto;
-  text-align: center;
+  padding: 72px 40px;
 }
 
-.recent-list h2 {
-  margin: 40px 0 15px 0;
+/* ==========================================================================
+   About page — intro grid
+   ========================================================================== */
+
+.intro {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 64px;
+  align-items: start;
 }
 
-.recent-list ul {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.recent-list ul li {
-  margin: 10px 0;
-}
-
-.project h2 {
-  margin-top: 40px;
-}
-
-.img-hopper {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.thumb {
-  position: relative;
-  max-width: 32%;
-  max-height: 250px;
-  margin: 0 1% 0 0;
-  float: left;
-  border: 2px solid var(--color-border);
-}
-
-.last {
-  margin: 0;
-}
-
-.learn {
+.intro-photo img {
   display: block;
-  padding: 4px 10px;
-  color: var(--color-accent-cyan);
-  background-color: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 5px;
-  text-align: center;
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border: 1px solid var(--border);
 }
 
-.learn:hover,
-.learn a:hover {
-  background-color: var(--color-bg-elevated);
-  color: var(--color-accent-orange);
+.intro-text h1 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 28px;
+  color: var(--text);
 }
 
-.resume h3 {
-  color: var(--color-text-primary);
-  margin-bottom: 0;
-  font-size: 1.3em;
-  line-height: 1.25;
+.intro-text p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0 0 16px;
 }
 
-.workplace {
-  color: var(--color-accent-orange);
+.intro-text a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
-.resume ul {
-  margin: 0.5% 0;
-}
-
-.duties {
-  color: var(--color-text-secondary);
-  margin-bottom: 0;
-}
-
-.date {
-  color: var(--color-accent-green);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.9em;
-  margin-top: 0.2%;
-}
-
-.main p,
-.main li {
-  line-height: 1.6;
-}
-
-.resume li + li {
-  margin-top: 0.25em;
-}
-
-.apps,
-.social {
-  max-width: 37%;
-  float: left;
-}
-
-.social {
-  min-width: 287px;
-}
-
-.apps {
-  margin-right: 26%;
+.intro-text a:hover {
+  color: var(--text);
 }
 
 /* ==========================================================================
- Media Queries
- ========================================================================== */
+   Footer
+   ========================================================================== */
 
-@media only screen and (min-width: 375px) {
-
-  /* ====================
-  INTERMEDIATE: Menu
- ==================== */
-  .main {
-    max-width: 80%;
-  }
-
-  .title {
-    margin-bottom: 20px;
-  }
-
-  nav ul {
-    display: flex;
-    gap: 8px;
-  }
-
-  nav ul li {
-    display: flex;
-  }
-
-  nav a {
-    float: none;
-    width: auto;
-    margin: 0;
-    padding: 18px 20px;
-    margin-bottom: 0;
-    border-radius: 3px;
-  }
-
-  nav li:first-child a {
-    margin-left: 0;
-  }
-
-  nav li:last-child a {
-    margin-right: 0;
-  }
-
-  h1 {
-    line-height: 1.1;
-  }
-
-  .thumb {
-    position: relative;
-    display: block;
-    margin: 0 auto;
-  }
-
-  /* ========================
-  INTERMEDIATE: IE Fixes
- ======================== */
-
-  nav ul li {
-    display: inline;
-  }
-
-  .oldie nav a {
-    margin: 0 0.7%;
-  }
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 40px;
 }
 
-@media only screen and (min-width: 768px) {
-
-  /* ============
-  WIDE: Menu
- ============ */
-
-  .title {
-    float: left;
-  }
-
-  nav {
-    float: right;
-    width: 38%;
-  }
-
-  /* ============
-  WIDE: Main
- ============ */
-  .main {
-    max-width: 55%;
-  }
-
-  .main article {
-    float: left;
-    width: 57%;
-  }
-
-  .main aside {
-    float: right;
-    width: 28%;
-  }
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-@media only screen and (min-width: 1140px) {
-
-  /* ===============
-  Maximal Width
- =============== */
-
-  .wrapper {
-    width: min(1026px, 90%);
-    margin: 0 auto;
-  }
-}
-
-/* ==========================================================================
- Helper classes
- ========================================================================== */
-
-.hidden {
-  display: none !important;
-  visibility: hidden;
-}
-
-.visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-  clip: auto;
-  height: auto;
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
   margin: 0;
-  overflow: visible;
-  position: static;
-  width: auto;
+  padding: 0;
 }
 
-.invisible {
-  visibility: hidden;
+.footer-links a {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
 }
 
-.clearfix:before,
-.clearfix:after {
-  content: " ";
-  display: table;
+.footer-links a:hover {
+  color: var(--text);
 }
 
-.clearfix:after {
-  clear: both;
+.studio-footer-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.clearfix {
-  zoom: 1;
+.studio-footer-logo {
+  width: 13px;
+  height: 13px;
+  image-rendering: pixelated;
+}
+
+.copyright {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Resume page
+   ========================================================================== */
+
+.resume-page {
+  max-width: 680px;
+}
+
+.resume-page > h1 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.resume-contact {
+  font-size: 12px;
+  color: var(--muted);
+  margin: -32px 0 48px;
+}
+
+/* Section */
+.resume-section {
+  margin-bottom: 48px;
+}
+
+.resume-section h2 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--accent);
+}
+
+/* Skills */
+.skills-text {
+  font-size: 12px;
+  line-height: 1.85;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Job entries */
+.job {
+  margin-bottom: 28px;
+}
+
+.job:last-child {
+  margin-bottom: 0;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.job-title-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.job-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.job-sep {
+  color: var(--muted);
+}
+
+.job-company {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.job-date {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.job-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.job-bullets li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.job-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+}
+
+.job-prose {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+
+.job-prose-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 12px 0 4px;
+}
+
+/* Education */
+.education-text {
+  font-size: 12px;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social-links a {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    position: static;
+  }
+
+  .site-nav {
+    gap: 20px;
+  }
+
+  main {
+    padding: 48px 24px;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .intro-photo img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .site-footer {
+    padding: 24px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .job-header {
+    flex-direction: column;
+    gap: 2px;
+  }
 }
