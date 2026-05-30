@@ -143,8 +143,14 @@ main {
   font-size: 20px;
   font-weight: 700;
   line-height: 1.35;
-  margin: 0 0 28px;
+  margin: 0 0 8px;
   color: var(--text);
+}
+
+.tagline {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 28px;
 }
 
 .intro-text p {
@@ -187,6 +193,7 @@ main {
 .footer-links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 24px;
   list-style: none;
   margin: 0;
@@ -242,8 +249,17 @@ main {
 
 .resume-contact {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--text-secondary, #aaaaaa);
   margin: -32px 0 48px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.resume-contact::before {
+  content: '✉';
+  font-size: 11px;
+  color: var(--accent);
 }
 
 /* Section */
