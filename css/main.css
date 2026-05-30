@@ -329,7 +329,7 @@ main {
 
 .job-date {
   font-size: 11px;
-  color: var(--muted);
+  color: #888;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -353,7 +353,7 @@ main {
   content: '—';
   position: absolute;
   left: 0;
-  color: var(--muted);
+  color: #888;
 }
 
 .job-prose {
