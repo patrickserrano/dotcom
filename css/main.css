@@ -9,13 +9,15 @@
    ========================================================================== */
 
 :root {
-  --bg:      #0d0d0d;
-  --text:    #e8e8e8;
-  --muted:   #555555;
-  --accent:  #e8612a;
-  --border:  #1f1f1f;
-  --font:    ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
-  --max-w:   860px;
+  --bg:             #0d0d0d;
+  --text:           #e8e8e8;
+  --text-secondary: #aaaaaa;
+  --muted:          #666666;
+  --muted-mid:      #888888;
+  --accent:         #e8612a;
+  --border:         #1f1f1f;
+  --font:           ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  --max-w:          860px;
   color-scheme: dark;
 }
 
@@ -249,7 +251,7 @@ main {
 
 .resume-contact {
   font-size: 12px;
-  color: var(--text-secondary, #aaaaaa);
+  color: var(--text-secondary);
   margin: -32px 0 48px;
   display: flex;
   align-items: center;
@@ -329,7 +331,7 @@ main {
 
 .job-date {
   font-size: 11px;
-  color: #888;
+  color: var(--muted-mid);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -353,7 +355,7 @@ main {
   content: '—';
   position: absolute;
   left: 0;
-  color: #888;
+  color: var(--muted-mid);
 }
 
 .job-prose {
@@ -363,40 +365,11 @@ main {
   margin: 0 0 8px;
 }
 
-.job-prose-label {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 12px 0 4px;
-}
-
 /* Education */
 .education-text {
   font-size: 12px;
   color: var(--text);
   margin: 0;
-}
-
-/* Social links */
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.social-links a {
-  font-size: 12px;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.social-links a:hover {
-  color: var(--text);
-  text-decoration: underline;
 }
 
 /* ==========================================================================
