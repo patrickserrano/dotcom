@@ -319,9 +319,6 @@ main {
   color: var(--text);
 }
 
-.job-sep {
-  color: var(--muted);
-}
 
 .job-company {
   font-size: 13px;
