@@ -1,0 +1,107 @@
+name: IndexNow
+
+# Notify IndexNow (Bing, Yandex, etc.) when published pages change.
+# Pages is deployed from the main branch (legacy build-from-branch), so this
+# runs on push to main and submits only the URLs whose HTML actually changed.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.html"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # need the previous commit to diff against
+
+      - name: Submit changed pages to IndexNow
+        env:
+          HOST: patrickserrano.com
+          # GitHub-provided commit SHAs — passed via env (not interpolated into
+          # the script body) per GitHub Actions injection-safety guidance.
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          # Single source of truth for the key: the 32-hex .txt file at the repo root.
+          KEY_FILE=$(find . -maxdepth 1 -type f -regextype posix-extended \
+            -regex '\./[0-9a-f]{32}\.txt' -printf '%f\n' | head -n1)
+          if [ -z "${KEY_FILE:-}" ]; then
+            echo "No IndexNow key file (<32-hex>.txt) found at repo root; skipping."
+            exit 0
+          fi
+          KEY="${KEY_FILE%.txt}"
+
+          # Range of HTML files changed by this push. Fall back to HEAD~1 when
+          # 'before' is unavailable (first push / force push / new branch).
+          BEFORE="$BEFORE_SHA"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE="$(git rev-parse HEAD~1 2>/dev/null || true)"
+          fi
+          if [ -n "$BEFORE" ]; then
+            CHANGED=$(git diff --name-only --diff-filter=ACM "$BEFORE" "$AFTER_SHA" -- '*.html')
+          else
+            CHANGED=$(git ls-files '*.html')
+          fi
+
+          # Map changed HTML files to public URLs:
+          #   index.html        -> /
+          #   resume/index.html -> /resume/
+          #   foo/bar.html      -> /foo/bar.html
+          urls=()
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              index.html)   path="/" ;;
+              */index.html) path="/${f%index.html}" ;;  # keeps trailing slash
+              *)            path="/$f" ;;
+            esac
+            urls+=("https://${HOST}${path}")
+          done <<< "$CHANGED"
+
+          if [ "${#urls[@]}" -eq 0 ]; then
+            echo "No published HTML pages changed; nothing to submit."
+            exit 0
+          fi
+
+          # Build the JSON payload.
+          url_json=$(printf '"%s",' "${urls[@]}")
+          url_json="[${url_json%,}]"
+          payload=$(cat <<EOF
+          {
+            "host": "${HOST}",
+            "key": "${KEY}",
+            "keyLocation": "https://${HOST}/${KEY_FILE}",
+            "urlList": ${url_json}
+          }
+          EOF
+          )
+
+          echo "Submitting to IndexNow:"
+          printf '  %s\n' "${urls[@]}"
+
+          code=$(curl -sS -o /tmp/indexnow.out -w '%{http_code}' \
+            -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$payload")
+
+          echo "IndexNow responded: HTTP $code"
+          cat /tmp/indexnow.out || true
+          echo
+          # 200 = OK, 202 = Accepted (key validation pending). Both are success.
+          case "$code" in
+            200|202) echo "Success." ;;
+            *) echo "IndexNow submission failed."; exit 1 ;;
+          esac
