@@ -1,14 +1,18 @@
 name: IndexNow
 
 # Notify IndexNow (Bing, Yandex, etc.) when published pages change.
-# Pages is deployed from the main branch (legacy build-from-branch), so this
-# runs on push to main and submits only the URLs whose HTML actually changed.
+# The site is a Next.js app deployed on Vercel; this job maps changed source
+# files (MDX posts and route files) to their public URLs and submits them.
+# IndexNow only notifies — crawlers fetch the URLs later, by which point Vercel
+# has finished deploying the push.
 
 on:
   push:
     branches: [main]
     paths:
-      - "**.html"
+      - "content/blog/**"
+      - "src/app/**"
+      - "src/components/**"
 
 permissions:
   contents: read
@@ -35,44 +39,61 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Single source of truth for the key: the 32-hex .txt file at the repo root.
-          KEY_FILE=$(find . -maxdepth 1 -type f -regextype posix-extended \
-            -regex '\./[0-9a-f]{32}\.txt' -printf '%f\n' | head -n1)
+          # Single source of truth for the key: the 32-hex .txt file in public/.
+          KEY_FILE=$(find public -maxdepth 1 -type f -regextype posix-extended \
+            -regex '.*/[0-9a-f]{32}\.txt' -printf '%f\n' | head -n1)
           if [ -z "${KEY_FILE:-}" ]; then
-            echo "No IndexNow key file (<32-hex>.txt) found at repo root; skipping."
+            echo "No IndexNow key file (public/<32-hex>.txt) found; skipping."
             exit 0
           fi
           KEY="${KEY_FILE%.txt}"
 
-          # Range of HTML files changed by this push. Fall back to HEAD~1 when
-          # 'before' is unavailable (first push / force push / new branch).
+          # Files changed by this push. Fall back to HEAD~1 when 'before' is
+          # unavailable (first push / force push / new branch).
           BEFORE="$BEFORE_SHA"
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             BEFORE="$(git rev-parse HEAD~1 2>/dev/null || true)"
           fi
           if [ -n "$BEFORE" ]; then
-            CHANGED=$(git diff --name-only --diff-filter=ACM "$BEFORE" "$AFTER_SHA" -- '*.html')
+            CHANGED=$(git diff --name-only --diff-filter=ACM "$BEFORE" "$AFTER_SHA")
           else
-            CHANGED=$(git ls-files '*.html')
+            CHANGED=$(git ls-files)
           fi
 
-          # Map changed HTML files to public URLs:
-          #   index.html        -> /
-          #   resume/index.html -> /resume/
-          #   foo/bar.html      -> /foo/bar.html
+          # Map changed source files to public URLs (deduped).
+          declare -A seen
           urls=()
+          add_url() {
+            local u="$1"
+            if [ -z "${seen[$u]:-}" ]; then
+              seen[$u]=1
+              urls+=("$u")
+            fi
+          }
+
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             case "$f" in
-              index.html)   path="/" ;;
-              */index.html) path="/${f%index.html}" ;;  # keeps trailing slash
-              *)            path="/$f" ;;
+              content/blog/*.mdx)
+                slug="${f#content/blog/}"; slug="${slug%.mdx}"
+                add_url "https://${HOST}/blog/${slug}"
+                add_url "https://${HOST}/blog" ;;
+              src/app/page.tsx)
+                add_url "https://${HOST}/" ;;
+              src/app/resume/*)
+                add_url "https://${HOST}/resume" ;;
+              src/app/blog/page.tsx)
+                add_url "https://${HOST}/blog" ;;
+              # Shared layout / components / global styles touch every page.
+              src/app/layout.tsx|src/app/globals.css|src/components/*)
+                add_url "https://${HOST}/"
+                add_url "https://${HOST}/resume"
+                add_url "https://${HOST}/blog" ;;
             esac
-            urls+=("https://${HOST}${path}")
           done <<< "$CHANGED"
 
           if [ "${#urls[@]}" -eq 0 ]; then
-            echo "No published HTML pages changed; nothing to submit."
+            echo "No published pages affected; nothing to submit."
             exit 0
           fi
 

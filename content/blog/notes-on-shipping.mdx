@@ -1,0 +1,27 @@
+---
+title: "Notes on Shipping"
+description: "A few habits that keep small projects moving: decide fast, keep the diff small, and let the tools do the boring parts."
+date: "2026-06-10"
+tags: ["engineering"]
+---
+
+A short collection of things I keep relearning.
+
+## Decide fast, reverse cheaply
+
+Most decisions on a small project are two-way doors. Pick the obvious option,
+write it down, and move on. The cost of deliberating usually exceeds the cost of
+being wrong.
+
+## Keep the diff small
+
+A change you can read in one sitting is a change you can review, revert, and
+reason about. When a branch sprawls, that's usually a sign it's really several
+changes wearing a trenchcoat.
+
+## Let the tools do the boring parts
+
+Formatting, linting, deploys, and search-engine pings should all be automated.
+If I'm doing it by hand more than twice, it goes in CI.
+
+> The goal isn't to do more. It's to make the next change easy.

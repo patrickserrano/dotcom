@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://patrickserrano.com/sitemap.xml
