@@ -5,7 +5,6 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { mdxComponents } from "@/components/mdx-components";
 import { formatPostDate, getPost, getPostSlugs } from "@/lib/blog";
-import { siteConfig } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -22,7 +21,6 @@ export async function generateMetadata({
   const post = getPost(slug);
   if (!post) return {};
 
-  const url = `${siteConfig.url}/blog/${post.slug}`;
   return {
     title: post.title,
     description: post.description,
@@ -31,7 +29,7 @@ export async function generateMetadata({
       type: "article",
       title: post.title,
       description: post.description,
-      url,
+      url: `/blog/${post.slug}`,
       publishedTime: post.date,
     },
     twitter: {

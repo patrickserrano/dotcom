@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default function HomePage() {
+import { getSite } from "@/lib/site-server";
+
+export default async function HomePage() {
+  const site = await getSite();
+
   return (
     <section
       aria-labelledby="intro-heading"
@@ -9,7 +13,7 @@ export default function HomePage() {
       <div>
         <Image
           src="/img/me.jpg"
-          alt="Patrick Serrano"
+          alt={site.name}
           width={220}
           height={220}
           priority

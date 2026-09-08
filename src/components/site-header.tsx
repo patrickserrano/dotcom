@@ -4,10 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { navLinks, siteConfig, studio } from "@/lib/site";
+import { studio, type NavLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
+export function SiteHeader({
+  siteName,
+  navLinks,
+}: {
+  siteName: string;
+  navLinks: readonly NavLink[];
+}) {
   const pathname = usePathname();
 
   const isActive = (href: string) =>
@@ -19,7 +25,7 @@ export function SiteHeader() {
         href="/"
         className="text-[13px] font-bold tracking-[0.02em] text-foreground"
       >
-        {siteConfig.name}
+        {siteName}
       </Link>
 
       <nav aria-label="Primary navigation">

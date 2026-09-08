@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 
 import { education, jobs, skills, type Job } from "@/lib/resume";
-import { siteConfig } from "@/lib/site";
+import { getSite } from "@/lib/site-server";
 
-export const metadata: Metadata = {
-  title: "Resume",
-  description:
-    "Resume for Patrick Serrano — software engineering, management, marketing technology, design, and systems administration experience.",
-  alternates: { canonical: "/resume" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+
+  return {
+    title: "Resume",
+    description: site.resumeDescription,
+    alternates: { canonical: "/resume" },
+  };
+}
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -55,7 +58,9 @@ function JobEntry({ job }: { job: Job }) {
   );
 }
 
-export default function ResumePage() {
+export default async function ResumePage() {
+  const site = await getSite();
+
   return (
     <article aria-labelledby="resume-heading" className="max-w-[680px]">
       <h1
@@ -66,7 +71,7 @@ export default function ResumePage() {
       </h1>
 
       <p className="mb-12 flex items-center gap-1.5 text-[12px] text-[color:var(--text-secondary,#aaaaaa)] before:text-[11px] before:text-primary before:content-['✉']">
-        {siteConfig.email.replace("@", " [at] ")}
+        {site.email.replace("@", " [at] ")}
       </p>
 
       <section className="mb-12">

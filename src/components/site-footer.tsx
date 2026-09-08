@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import { siteConfig, socialLinks, studio } from "@/lib/site";
+import { socialLinks, studio } from "@/lib/site";
 
-export function SiteFooter() {
+export function SiteFooter({ siteName }: { siteName: string }) {
   const year = new Date().getFullYear();
 
   return (
@@ -41,7 +41,7 @@ export function SiteFooter() {
           </li>
         </ul>
         <p className="text-[11px] text-muted-foreground">
-          &copy; {year} {siteConfig.name}
+          &copy; {year} {siteName}
         </p>
       </div>
     </footer>

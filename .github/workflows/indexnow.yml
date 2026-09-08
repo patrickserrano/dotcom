@@ -1,8 +1,9 @@
 name: IndexNow
 
 # Notify IndexNow (Bing, Yandex, etc.) when published pages change.
-# The site is a Next.js app deployed on Vercel; this job maps changed source
-# files (MDX posts and route files) to their public URLs and submits them.
+# The site is a Next.js app deployed on Vercel and served from two domains
+# during the name change, so every changed path is submitted once per host.
+# This job maps changed source files (MDX posts and route files) to paths.
 # IndexNow only notifies — crawlers fetch the URLs later, by which point Vercel
 # has finished deploying the push.
 
@@ -13,6 +14,7 @@ on:
       - "content/blog/**"
       - "src/app/**"
       - "src/components/**"
+      - "src/lib/**" # site.ts drives every page title and description
 
 permissions:
   contents: read
@@ -31,7 +33,9 @@ jobs:
 
       - name: Submit changed pages to IndexNow
         env:
-          HOST: patrickserrano.com
+          # Both domains serve the same content while the name change is in
+          # progress; each is a separate IndexNow host.
+          HOSTS: "patrickserrano.com patrickpowers.dev"
           # GitHub-provided commit SHAs — passed via env (not interpolated into
           # the script body) per GitHub Actions injection-safety guidance.
           BEFORE_SHA: ${{ github.event.before }}
@@ -60,47 +64,58 @@ jobs:
             CHANGED=$(git ls-files)
           fi
 
-          # Map changed source files to public URLs (deduped).
+          # Map changed source files to site-relative paths (deduped).
           declare -A seen
-          urls=()
-          add_url() {
-            local u="$1"
-            if [ -z "${seen[$u]:-}" ]; then
-              seen[$u]=1
-              urls+=("$u")
+          paths=()
+          add_path() {
+            local p="$1"
+            if [ -z "${seen[$p]:-}" ]; then
+              seen[$p]=1
+              paths+=("$p")
             fi
           }
+
+          # /blog and its posts only exist once a post does; the route 404s
+          # otherwise, so never submit them for an empty blog.
+          has_posts=false
+          if compgen -G "content/blog/*.mdx" > /dev/null; then
+            has_posts=true
+          fi
 
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             case "$f" in
               content/blog/*.mdx)
-                slug="${f#content/blog/}"; slug="${slug%.mdx}"
-                add_url "https://${HOST}/blog/${slug}"
-                add_url "https://${HOST}/blog" ;;
+                if [ "$has_posts" = true ]; then
+                  slug="${f#content/blog/}"; slug="${slug%.mdx}"
+                  add_path "/blog/${slug}"
+                  add_path "/blog"
+                fi ;;
               src/app/page.tsx)
-                add_url "https://${HOST}/" ;;
+                add_path "/" ;;
               src/app/resume/*)
-                add_url "https://${HOST}/resume" ;;
+                add_path "/resume" ;;
               src/app/blog/page.tsx)
-                add_url "https://${HOST}/blog" ;;
-              # Shared layout / components / global styles touch every page.
-              src/app/layout.tsx|src/app/globals.css|src/components/*)
-                add_url "https://${HOST}/"
-                add_url "https://${HOST}/resume"
-                add_url "https://${HOST}/blog" ;;
+                [ "$has_posts" = true ] && add_path "/blog" ;;
+              # Shared layout / components / config touch every page.
+              src/app/layout.tsx|src/app/globals.css|src/components/*|src/lib/*)
+                add_path "/"
+                add_path "/resume"
+                [ "$has_posts" = true ] && add_path "/blog" ;;
             esac
           done <<< "$CHANGED"
 
-          if [ "${#urls[@]}" -eq 0 ]; then
+          if [ "${#paths[@]}" -eq 0 ]; then
             echo "No published pages affected; nothing to submit."
             exit 0
           fi
 
-          # Build the JSON payload.
-          url_json=$(printf '"%s",' "${urls[@]}")
-          url_json="[${url_json%,}]"
-          payload=$(cat <<EOF
+          # Submit the same set of paths to each host in turn.
+          failed=0
+          for HOST in $HOSTS; do
+            url_json=$(printf "\"https://${HOST}%s\"," "${paths[@]}")
+            url_json="[${url_json%,}]"
+            payload=$(cat <<EOF
           {
             "host": "${HOST}",
             "key": "${KEY}",
@@ -108,21 +123,25 @@ jobs:
             "urlList": ${url_json}
           }
           EOF
-          )
+            )
 
-          echo "Submitting to IndexNow:"
-          printf '  %s\n' "${urls[@]}"
+            echo "Submitting to IndexNow for ${HOST}:"
+            printf "  https://${HOST}%s\n" "${paths[@]}"
 
-          code=$(curl -sS -o /tmp/indexnow.out -w '%{http_code}' \
-            -X POST "https://api.indexnow.org/IndexNow" \
-            -H "Content-Type: application/json; charset=utf-8" \
-            -d "$payload")
+            code=$(curl -sS -o /tmp/indexnow.out -w '%{http_code}' \
+              -X POST "https://api.indexnow.org/IndexNow" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              -d "$payload")
 
-          echo "IndexNow responded: HTTP $code"
-          cat /tmp/indexnow.out || true
-          echo
-          # 200 = OK, 202 = Accepted (key validation pending). Both are success.
-          case "$code" in
-            200|202) echo "Success." ;;
-            *) echo "IndexNow submission failed."; exit 1 ;;
-          esac
+            echo "IndexNow responded for ${HOST}: HTTP $code"
+            cat /tmp/indexnow.out || true
+            echo
+            # 200 = OK, 202 = Accepted (key validation pending). Both succeed.
+            case "$code" in
+              200|202) echo "Success for ${HOST}." ;;
+              # Keep going so one bad host cannot suppress the other.
+              *) echo "IndexNow submission failed for ${HOST}."; failed=1 ;;
+            esac
+          done
+
+          exit "$failed"
