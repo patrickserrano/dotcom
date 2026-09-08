@@ -27,14 +27,14 @@ export function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${studio.label}, opens in a new tab`}
-              className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-muted-foreground transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 whitespace-nowrap text-[11px] tracking-[0.04em] text-muted-foreground transition-colors hover:text-foreground"
             >
               <Image
                 src={studio.logo}
                 alt=""
                 width={13}
                 height={13}
-                className="[image-rendering:pixelated]"
+                className="shrink-0 [image-rendering:pixelated]"
               />
               {studio.label}
             </a>

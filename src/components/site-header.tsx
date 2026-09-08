@@ -48,14 +48,14 @@ export function SiteHeader() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${studio.label}, opens in a new tab`}
-              className="flex items-center gap-1.5 text-xs tracking-[0.04em] text-muted-foreground transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 whitespace-nowrap text-xs tracking-[0.04em] text-muted-foreground transition-colors hover:text-foreground"
             >
               <Image
                 src={studio.logo}
                 alt=""
                 width={14}
                 height={14}
-                className="[image-rendering:pixelated]"
+                className="shrink-0 [image-rendering:pixelated]"
               />
               {studio.label}
             </a>
