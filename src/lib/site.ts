@@ -62,6 +62,18 @@ export function resolveSiteVariant(host: string | null | undefined): SiteVariant
   return hostname.includes("patrickpowers") ? "powers" : DEFAULT_VARIANT;
 }
 
+/**
+ * GA4 measurement ID, shared by both domains on purpose.
+ *
+ * This is the long-running property behind the old UA-25221879, so pointing
+ * both hosts at it keeps the history continuous through the rename rather
+ * than splitting it across two properties. GA4 records the page hostname on
+ * every event, so Serrano and Powers traffic stay separable in reports.
+ *
+ * It runs alongside @vercel/analytics; the two are unrelated and independent.
+ */
+export const GA_MEASUREMENT_ID = "G-QZFWSDVFGJ";
+
 /** External social links rendered in the footer. Shared by both variants. */
 export const socialLinks = [
   { href: "https://github.com/patrickserrano", label: "GitHub" },

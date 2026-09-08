@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { GA_MEASUREMENT_ID } from "@/lib/site";
 import { getNavLinks, getSite } from "@/lib/site-server";
 import "./globals.css";
 
@@ -58,6 +60,7 @@ export default async function RootLayout({
         </main>
         <SiteFooter siteName={site.name} />
         <Analytics />
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
       </body>
     </html>
   );
