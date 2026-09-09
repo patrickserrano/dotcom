@@ -40,7 +40,10 @@ export function siteConfigFor(variant: SiteVariant): SiteConfig {
     variant,
     surname,
     name,
-    title: name,
+    // Suffixed so the title says what he does for someone who does not
+    // already know the name. A description of the work rather than a job
+    // title, so it does not go stale on the next role change.
+    title: `${name} — Software Engineer`,
     description: `${name} is a software engineer and creative technologist with experience across engineering, management, design, and systems work.`,
     resumeDescription: `Resume for ${name} — software engineering, management, marketing technology, design, and systems administration experience.`,
     host,
