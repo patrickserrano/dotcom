@@ -29,7 +29,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # need the previous commit to diff against
+          # Full history: a push can contain any number of commits, and a
+          # shallow clone makes the push's "before" SHA unreachable, which
+          # fails the diff outright. The repo is small; depth is cheap.
+          fetch-depth: 0
 
       - name: Submit changed pages to IndexNow
         env:
@@ -57,6 +60,13 @@ jobs:
           BEFORE="$BEFORE_SHA"
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             BEFORE="$(git rev-parse HEAD~1 2>/dev/null || true)"
+          fi
+          # Belt and braces: if the SHA still is not in this clone (force push,
+          # rewritten history), fall back to the whole tree rather than letting
+          # `git diff` abort the job under `set -e`.
+          if [ -n "$BEFORE" ] && ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            echo "Previous SHA $BEFORE not reachable; treating all files as changed."
+            BEFORE=""
           fi
           if [ -n "$BEFORE" ]; then
             CHANGED=$(git diff --name-only --diff-filter=ACM "$BEFORE" "$AFTER_SHA")
